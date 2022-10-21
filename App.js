@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View, FlatList, Button } from "react-native";
 import GoalItem from "./component/Goal_Item";
 import GoalInput from "./component/Goal_Input";
+import { StatusBar } from "react-native";
 export default function App() {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [goals, setGoals] = useState([]);
@@ -26,32 +27,35 @@ export default function App() {
     });
   }
   return (
-    <View style={styles.appContainer}>
-      <Button
-        title="Add New Goal"
-        color="#cccccc"
-        onPress={startAddGoalHandler}
-      />
-      <GoalInput
-        visible={modalIsVisible}
-        onAddGoal={addGoalHandler}
-        onCancel={endAddGoalHandler}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={goals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData.item.text}
-                id={itemData.item.id}
-                onDeleteItem={deleteGoalHandler}
-              />
-            );
-          }}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add New Goal"
+          color="#5e0dff"
+          onPress={startAddGoalHandler}
         />
+        <GoalInput
+          visible={modalIsVisible}
+          onAddGoal={addGoalHandler}
+          onCancel={endAddGoalHandler}
+        />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={goals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData.item.text}
+                  id={itemData.item.id}
+                  onDeleteItem={deleteGoalHandler}
+                />
+              );
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
